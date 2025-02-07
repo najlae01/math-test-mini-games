@@ -1,4 +1,4 @@
-# Test Mini-Games - README
+# Test Mini-Games
 
 ## Overview
 The **Test Mini-Games** collection is a set of educational games designed to help students practice essential mathematical concepts across multiple grade levels. The mini-games cover topics ranging from reading numbers to solving real-world problems, with levels tailored to different student needs. These games incorporate interactive NPCs, customizable difficulty settings, and speech-based input to enhance the learning experience.
@@ -14,13 +14,13 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 8. [Technical Setup](#technical-setup)
 9. [Installation Instructions](#installation-instructions)
 10. [Gamification Elements](#gamification-elements)
-11. [Teacher Dashboard Integration](#teacher-dashboard-integration)
+11. [Teacher Dashboard Integration (Web App)](#teacher-dashboard-integration)
 12. [Contributing](#contributing)
 13. [Contact](#contact)
 
 ---
 
-## Mini-Game 1️⃣: Reading Numbers
+## Mini-Game 1: Reading Numbers
 
 ### **Target Grades**: Grades 1–6  
 **Description**: Students practice recognizing and reading single-digit and double-digit numbers using Speech-to-Text and Text-to-Speech technologies. NPC avatars guide and provide feedback throughout the game.
@@ -38,7 +38,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 
 ---
 
-## Mini-Game 2️⃣: Addition of Two Numbers
+## Mini-Game 2: Addition of Two Numbers
 
 ### **Target Grades**: Grades 2–6  
 **Description**: Students solve horizontal addition problems, with at least two operations per equation. NPC avatars provide verbal encouragement.
@@ -51,7 +51,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 
 ---
 
-## Mini-Game 3️⃣: Subtraction of Two Numbers
+## Mini-Game 3: Subtraction of Two Numbers
 
 ### **Target Grades**: Grades 3–6  
 **Description**: Students practice solving subtraction problems with varying difficulty. Permutations of numbers may be used for added complexity. NPC avatars offer feedback.
@@ -64,7 +64,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 
 ---
 
-## Mini-Game 4️⃣: Multiplication of Two Numbers
+## Mini-Game 4: Multiplication of Two Numbers
 
 ### **Target Grades**: Grades 4–6  
 **Description**: Students practice solving multiplication problems with increasing complexity, starting from single-digit numbers multiplied by two-digit numbers for grade 4 to two-digit numbers multiplied by two-digit numbers for higher grades.
@@ -77,7 +77,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 
 ---
 
-## Mini-Game 5️⃣: Division of Two Numbers
+## Mini-Game 5: Division of Two Numbers
 
 ### **Target Grades**: Grades 5–6  
 **Description**: Students solve division problems involving three-digit numbers divided by single-digit numbers. NPC avatars explain the problems when necessary.
@@ -90,7 +90,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 
 ---
 
-## Mini-Game 6️⃣: Real-World Problems
+## Mini-Game 6: Real-World Problems
 
 ### **Target Grades**: Grades 2–6  
 **Description**: Students solve real-world math problems. This includes multiple-choice questions for simple problems and open-ended questions where students write steps and operations for more complex problems.
@@ -162,7 +162,7 @@ For a detailed explanation of the class structure, please refer to the diagram a
 
 ---
 
-## 📥 Installation Instructions
+## Installation Instructions
 
 1. Clone or download the project files from the repository.
 
@@ -197,7 +197,7 @@ For a detailed explanation of the class structure, please refer to the diagram a
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions to improve these mini-games!
 
@@ -209,7 +209,7 @@ We welcome contributions to improve these mini-games!
 
 ---
 
-## 📧 Contact
+## Contact
 
 For support, contact [Najlae](mailto:najlae.abarghache@etu.uae.ac.ma).
 
