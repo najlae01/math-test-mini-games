@@ -10,6 +10,7 @@ Plugins/Firebase8d7bcf9a30e9V11
 
 .vscode
 .vs
+.vsconfig
 *.VC.db
 *.opensdf
 *.opendb
@@ -22,5 +23,5 @@ Plugins/Firebase8d7bcf9a30e9V11
 
 # Test-Mini-Games - remote: test
 Content/Maps/Game
-BlueprintCore/City
-Assets/City
+Content/BlueprintCore/City
+Content/Assets/City
