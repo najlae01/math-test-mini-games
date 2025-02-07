@@ -1,0 +1,26 @@
+Binaries
+DerivedDataCache
+Intermediate
+Saved
+Build
+Windows
+Android_ASTC
+Services
+Plugins/Firebase8d7bcf9a30e9V11
+
+.vscode
+.vs
+*.VC.db
+*.opensdf
+*.opendb
+*.sdf
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+
+
+# Test-Mini-Games - remote: test
+Content/Maps/Game
+BlueprintCore/City
+Assets/City
