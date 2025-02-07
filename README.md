@@ -14,7 +14,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 8. [Technical Setup](#technical-setup)
 9. [Installation Instructions](#installation-instructions)
 10. [Gamification Elements](#gamification-elements)
-11. [Teacher Dashboard Integration (Web App)](#teacher-dashboard-integration)
+11. [Teacher Dashboard Integration](#teacher-dashboard-integration)
 12. [Contributing](#contributing)
 13. [Contact](#contact)
 
@@ -153,7 +153,7 @@ For a detailed explanation of the class structure, please refer to the diagram a
 
 ---
 
-## Teacher Dashboard Integration (Web App)
+## Teacher Dashboard Integration
 
 - **Customization of Test Parameters**: Teachers can customize test difficulty, duration, problem count, and the number of correct answers required.
 - **Real-Time Monitoring of Student Performance**: Track student performance in real-time while they are engaging with the mini-games.
