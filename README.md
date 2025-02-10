@@ -11,7 +11,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 5. [Mini-Game 5: Division of Two Numbers](#mini-game-5-division-of-two-numbers)
 6. [Mini-Game 6: Real-World Problems](#mini-game-6-real-world-problems)
 7. [System Components](#system-components)
-8. [Technical Setup](#technical-setup)
+8. [Technical Requirements](#technical-requirements)
 9. [Installation Instructions](#installation-instructions)
 10. [Gamification Elements](#gamification-elements)
 11. [Teacher Dashboard Integration](#teacher-dashboard-integration)
@@ -23,7 +23,7 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 ## Mini-Game 1: Reading Numbers
 
 ### **Target Grades**: Grades 1–6  
-**Description**: Students practice recognizing and reading single-digit and double-digit numbers using Speech-to-Text and Text-to-Speech technologies. NPC avatars guide and provide feedback throughout the game.
+**Description**: Students practice recognizing and reading single-digit and double-digit numbers using **Speech-to-Text** technology. NPC avatars guide and provide feedback throughout the game.
 
 **Levels**:
 - Level 1: Single-digit numbers (0–10)
@@ -127,23 +127,45 @@ For a detailed explanation of the class structure, please refer to the diagram a
 
 ---
 
-## Technical Setup
+## Technical Requirements
 
-- **Unreal Engine**:  
-  C++ is used for the game logic, including a simple dialogue system between the Player and the NPC, tracking answers, levels, and progression.  
-  UMG Widgets are used for displaying problems, choices, and responses.
+- **Unreal Engine:**  
+  C++ is used for game logic, including a simple dialogue system between the player and NPCs, tracking answers, levels, and progression.  
+  UMG Widgets are used to display problems, choices, and responses.  
 
-- **Speech-to-Text**:  
-  Integration of Speech-to-Text for number reading and responses (on devices with voice recognition support).
+- **Speech-to-Text (Arabic):**  
+  Arabic Speech-to-Text integration is used for number reading and responses (on devices with voice recognition support) in [Mini-Game 1: Reading Numbers](#mini-game-1-reading-numbers).
 
-- **Text-to-Speech**:  
-  NPC avatars provide guidance, prompts, and feedback using Text-to-Speech (TTS) technology.
+  **Integration Methods:**  
+  1. **Hosted API Approach:** Deploy an Arabic STT model on a free server (e.g., Vercel). Unreal Engine communicates with the API using the [HTTP module](https://dev.epicgames.com/community/learning/tutorials/ZdXD/call-rest-api-using-http-json-from-ue5-c). *Note:* Free servers like Vercel may have API rate limits and latency issues, which could affect real-time performance.
+  2. **On-Device Model (Offline Option):** Integrate Mozilla’s DeepSpeech fine-tuned for Arabic using Python/C++ bindings. *Note:* On-device models may require significant processing power, which could be a limitation on lower-end mobile devices.
 
-- **NPC Avatars**:  
-  3D NPC characters provide feedback using animations and facial expressions to engage students.
+  **Open-Source Reference:** [Arabic Speech Recognition](https://github.com/ARBML/klaam).
 
-- **Progression**:  
-  Each mini-game has a progression system where students unlock more difficult levels as they get answers correct. A feedback system is included to help reinforce students’ performance.
+- **Text-to-Speech (Arabic):**  
+  NPC avatars provide guidance, prompts, and feedback using Arabic Text-to-Speech (TTS) technology, applied across all Test Mini-Games.
+
+  **Integration Methods:**  
+  1. **Hosted API Approach:** Host an Arabic TTS model (e.g., ARBML/klaam) on a free server (e.g., Vercel). Unreal Engine sends text via HTTP requests and plays the received audio. *Note:* Free hosting may introduce latency and API call limitations.
+  2. **Pre-Generated Audio:** Generate static dialogues during development and store `.wav`/`.ogg` files in Unreal's Content Browser for quick playback. *Note:* This approach won't be valid in the future when migrating from static questions and problems to AI-generated questions and problems based on the student's profile.
+
+  **Open-Source Reference:** [Arabic Text-to-Speech](https://github.com/ARBML/klaam).
+
+- **NPC Avatars:**  
+  3D NPC characters provide feedback through animations and facial expressions to engage students.  
+
+- **Handwriting Recognition:**  
+  A 2D Paint Interface is integrated for handwritten input, used in providing answers in Mini-Games 2 to 5.
+
+  **Integration Methods:**  
+  1. **Hosted API Approach:** Capture handwriting as an image, convert it to Base64, and send it to a recognition API hosted on a free server (e.g., Vercel) using Unreal's HTTP module. *Note:* Free servers may have rate limits and slower response times.
+  2. **On-Device ML Model:** Implement TensorFlow Lite models for local handwriting recognition integrated with Unreal via custom C++ bindings. *Note:* On-device ML models may demand higher CPU/GPU resources, potentially affecting performance on entry-level devices.
+
+  **Open-Source Reference:** [Recognizing Multiple Handwritten Digits](https://github.com/aryashah2k/Handwritten-Multiple-Digits-Recognizer/).
+
+- **Progression:**  
+  Each mini-game features a progression system where students unlock more challenging levels as they answer correctly.  
+  A feedback system is integrated to reinforce students’ performance.
 
 ---
 
