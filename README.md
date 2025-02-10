@@ -119,8 +119,11 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 - **`UMiniGameObserver`**: Handles notifications from the game systems.
 - **`UReadingNumbersMiniGame`, `UAdditionMiniGame`, `USubtractionMiniGame`, etc.**: Classes for specific mini-games.
 - **`UMathoriaGameInstance`, `UMathoriaPlayerProfile`, `AMathoriaPlayerState`**: Core player data and game management.
+- **`UMathoriaUserWidget`**: Base class for custom UI widgets.
+- **`UPaintWidget`**: Specialized widget for drawing functionalities, inherits from `UMathoriaUserWidget`.
+- **`WBP_DrawingCanvas`**: Blueprint implementation of `UPaintWidget` for easy UI integration.
 
-For a detailed explanation of the class structure, please refer to the diagram above.
+For a detailed explanation of the class structure, please refer to the diagram above and the contents of the `Source` folder.
 
 ---
 
