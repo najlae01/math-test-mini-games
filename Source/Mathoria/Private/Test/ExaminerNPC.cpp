@@ -15,7 +15,7 @@ void AExaminerNPC::StartTestOnInteraction()
     {
         AMathoriaPlayerState* PlayerStateRef = PlayerController->GetPlayerState<AMathoriaPlayerState>();
         /*PlayerStateRef->LoadPlayerData();*/
-        if (PlayerStateRef && PlayerStateRef->PlayerProfile->IsAuthenticatedByTeacher)
+        if (PlayerStateRef)
         {
             UE_LOG(LogTemp, Warning, TEXT("Starting TARL Test!"));
 

@@ -149,6 +149,21 @@
 		{
 			"Name": "AnimationData",
 			"Enabled": false
+		},
+		{
+			"Name": "QrReader",
+			"Enabled": true,
+			"SupportedTargetPlatforms": [
+				"Win64",
+				"Linux",
+				"Mac",
+				"IOS",
+				"Android"
+			]
+		},
+		{
+			"Name": "AndroidPermission",
+			"Enabled": true
 		}
 	]
 }

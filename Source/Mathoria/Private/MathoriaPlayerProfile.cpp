@@ -221,9 +221,6 @@ bool UMathoriaPlayerProfile::LoadPlayerData(FString FirebasePlayerId)
                     int32 MathLevelInt = Snapshot->GetChild("math_level")->GetValue().AsInt32();
                     MathLevel = MapIntToSchoolGradeEnum(MathLevelInt);
 
-                    IsAuthenticatedByTeacher = Snapshot->GetChild("is_authenticated_by_teacher")->GetValue().AsBool();
-
-
                     if (Snapshot->HasChild("completed_tasks"))
                     {
                         // Convert Firebase array to Unreal array

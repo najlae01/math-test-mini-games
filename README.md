@@ -15,8 +15,9 @@ The **Test Mini-Games** collection is a set of educational games designed to hel
 9. [Installation Instructions](#installation-instructions)
 10. [Gamification Elements](#gamification-elements)
 11. [Teacher Dashboard Integration](#teacher-dashboard-integration)
-12. [Contributing](#contributing)
-13. [Contact](#contact)
+12. [Important Update](#important-update)
+13. [Contributing](#contributing)
+14. [Contact](#contact)
 
 ---
 
@@ -184,6 +185,15 @@ For a detailed explanation of the class structure, please refer to the diagram a
 - **Real-Time Monitoring of Student Performance**: Track student performance in real-time while they are engaging with the mini-games.
 - **Analytics & Reports**: Teachers have access to detailed analytics, showing student progress, areas of strength, and areas for improvement. Reports can be generated based on student performance, helping educators adjust teaching strategies as needed.
 - **Link to GitHub Repo**: [GitHub Repository for Teacher Dashboard](https://github.com/najlae01/math-web.git)
+
+---
+
+## Important Update 
+We are making a key change to how students/players create and access their game accounts. Going forward, students will not be able to create accounts themselves—only teachers or school administrators can do so.
+
+To streamline this process, we are removing the in-game authentication form. Instead, students will log in using a QR code provided by their teacher upon account creation.
+
+In the future, we plan to introduce fingerprint authentication as an option for compatible devices.
 
 ---
 

@@ -43,7 +43,7 @@ UTarlManager* UTarlManager::Get()
 // Function to check if the player can take the test
 bool UTarlManager::CanStartTest()
 {
-    return (PlayerStateRef && PlayerStateRef->PlayerProfile && PlayerStateRef->PlayerProfile->IsAuthenticatedByTeacher);
+    return (PlayerStateRef && PlayerStateRef->PlayerProfile);
 }
 
 void UTarlManager::StartTest()
