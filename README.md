@@ -200,6 +200,7 @@ In the future, we plan to introduce fingerprint authentication as an option for 
 ## Installation Instructions
 
 1. Clone or download the project files from the repository.
+   `git clone https://github.com/najlae01/math-test-mini-games.git`
 
 2. **Create a Firebase Console Account:**
    - Go to [Firebase Console](https://console.firebase.google.com/).
@@ -220,7 +221,7 @@ In the future, we plan to introduce fingerprint authentication as an option for 
 
 7. **Organize Project Files:**
    - Create a `Services` folder in the project directory and place `google-services.json` inside.
-   - Create a `Plugins` folder and add the shared Firebase plugin there.
+   - Create a `Plugins` folder and add shared Firebase and QrReader plugins there.
 
 8. **Build the Project:**
    - Right-click the `.uproject` file.
