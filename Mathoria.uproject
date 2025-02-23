@@ -164,6 +164,14 @@
 		{
 			"Name": "AndroidPermission",
 			"Enabled": true
+		},
+		{
+			"Name": "AndroidCam",
+			"Enabled": true
+		},
+		{
+			"Name": "AndroidCamera",
+			"Enabled": true
 		}
 	]
 }

@@ -15,7 +15,8 @@ UCameraBarcodeReader::UCameraBarcodeReader(const FObjectInitializer& ObjectIniti
 	: Super(ObjectInitializer),
 	TickCount(0),
 	CameraOverride(TEXT("")),  
-	CameraTypeOverride(ECameraType::WebcamRear)
+	CameraTypeOverride(ECameraType::WebcamRear),
+	DeviceUrl(FString(""))
 {
 	Started = false;
 	Opened = false;
@@ -179,7 +180,7 @@ TSharedRef<SWidget> UCameraBarcodeReader::RebuildWidget()
 		TArray<FMediaCaptureDeviceInfo> AvailableDevices;
 		MediaCaptureSupport::EnumerateVideoCaptureDevices(AvailableDevices);
 
-		UE_LOG(LogTemp, Log, TEXT("Enumerating available devices..."));
+		UE_LOG(LogTemp, Log, TEXT("Enumerating available devices... Found %d devices"), AvailableDevices.Num());
 
 		for (const FMediaCaptureDeviceInfo& Device : AvailableDevices)
 		{
@@ -216,10 +217,12 @@ TSharedRef<SWidget> UCameraBarcodeReader::RebuildWidget()
 				break;
 			}
 		}
-		if (DeviceUrl.IsEmpty())
-		{
-			UE_LOG(LogTemp, Error, TEXT("No valid camera device URL found after enumeration!"));
-		}
+		//if (DeviceUrl.IsEmpty())
+		//{
+		//	UE_LOG(LogTemp, Error, TEXT("No valid camera device URL found after enumeration!"));
+		//}
+
+		//MediaPlayer->OpenUrl(TEXT("android_camera://0"));
 	}
 
 	return Overlay->TakeWidget();
