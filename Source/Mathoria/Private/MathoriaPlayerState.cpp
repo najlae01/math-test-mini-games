@@ -158,6 +158,106 @@ void AMathoriaPlayerState::SetupDisconnection()
 }
 
 
+void AMathoriaPlayerState::AuthenticateUser(const FString& Uid)
+{
+    if (Uid.IsEmpty())
+    {
+        UE_LOG(LogTemp, Error, TEXT("Authentication failed: Uid is empty."));
+        FirebasePlayerId = "Anonymous";  // Fallback to a guest profile
+
+        if (PlayerProfile != nullptr)
+        {
+            PlayerProfile->PlayerName = "GuestPlayer";
+            PlayerProfile->GameLevel = 1;
+            PlayerProfile->Coins = 0;
+            PlayerProfile->Gems = 0;
+            PlayerProfile->MathPoints = 0;
+            PlayerProfile->MathLevel = EGradeLevel::One; // Default grade level
+        }
+
+        IsConnected = false;
+        return;
+    }
+
+    // Set FirebasePlayerId and attempt to load data
+    FirebasePlayerId = Uid;
+
+    UDatabaseReference* PlayerDatabaseRef;
+
+    if (UDatabaseReference* PlayersRef = UDatabase::GetInstanceReference())
+    {
+        if (PlayersRef && PlayersRef->IsValid())
+        {
+            PlayerDatabaseRef = PlayersRef->ChildFromPaths({ "players", FirebasePlayerId, "email" });
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to get a valid database reference for 'players'."));
+            return;
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Firebase Database instance is null."));
+        return;
+    }
+
+    FString Email = "";
+
+    // Define the callback for database retrieval
+    FSnapshotCallback Callback = FSnapshotCallback::CreateLambda([this, &Email](EFirebaseDatabaseError Error, const UDataSnapshot* Snapshot) {
+        if (Error == EFirebaseDatabaseError::None)
+        {
+            if (Snapshot && Snapshot->IsValid())
+            {
+                if (Snapshot->HasChild("email"))
+                {
+                    Email = Snapshot->GetChild("email")->GetValue().AsString();
+                    UE_LOG(LogTemp, Log, TEXT("Email loaded successfully: %s"), *Email);
+
+                    // After loading email, authenticate the user using the email and password
+                    FAuth::SignInWithEmailAndPassword(Email, "password", FFirebaseSignInUserCallback::CreateLambda([this](FFirebaseError Error, UUser* User) {
+                        if (Error)
+                        {
+                            UE_LOG(LogTemp, Error, TEXT("Authentication failed: %s"), *Error.Message);
+                            IsConnected = false;
+                        }
+                        else
+                        {
+                            UE_LOG(LogTemp, Log, TEXT("User signed in successfully: %s"), *User->Uid());
+                            IsConnected = true;
+                            // Optionally, load player data after successful authentication
+                            LoadPlayerData();
+                        }
+                        }));
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Warning, TEXT("Player data is incomplete or missing email."));
+                    IsConnected = false;
+                }
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("Snapshot is invalid."));
+                IsConnected = false;
+            }
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("Failed to load player data: %d"), static_cast<int32>(Error));
+            IsConnected = false;
+        }
+        });
+
+    // Call GetValue with the callback to retrieve player data from the Firebase database
+    PlayerDatabaseRef->GetValue(Callback);
+
+    UE_LOG(LogTemp, Log, TEXT("Authenticating FirebasePlayerId: %s"), *FirebasePlayerId);
+}
+
+
+
 UTexture2D* AMathoriaPlayerState::GetHairTexture(EHairStyle HairStyle, EHairColor HairColor)
 {
     if (CustomizationManagerClass)

@@ -77,11 +77,6 @@ void UCameraBarcodeReader::InitializeDynamicMaterial()
 
 TSharedRef<SWidget> UCameraBarcodeReader::RebuildWidget()
 {
-	if (DeviceUrl.IsEmpty())
-	{
-		UE_LOG(LogTemp, Error, TEXT("No valid camera device URL found!"));
-	}
-
 	if (Overlay == nullptr)
 	{
 		Overlay = NewObject<UOverlay>(this);

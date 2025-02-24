@@ -55,6 +55,8 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Network Disconnection")
     void SetupDisconnection();
 
+    UFUNCTION(BlueprintCallable, Category = "Firebase")
+    void AuthenticateUser(const FString& Uid);
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Customization")
     TSubclassOf<UAvatarCustomizationManager> CustomizationManagerClass;
