@@ -350,7 +350,7 @@ int32 UMathoriaPlayerProfile::MapSchoolGradeEnumToInt(EGradeLevel SchoolGradeEnu
 
 bool UMathoriaPlayerProfile::IsPlayerNameEmpty()
 {
-    return PlayerName.IsEmpty();
+    return PlayerName.TrimStartAndEnd().IsEmpty();
 }
 
 
