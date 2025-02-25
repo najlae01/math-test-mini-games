@@ -205,7 +205,7 @@ bool UMathoriaPlayerProfile::LoadPlayerData(FString FirebasePlayerId)
         {
             if (Snapshot && Snapshot->IsValid())
             {
-                if (Snapshot->HasChild("player_name"))
+                if (Snapshot->HasChild("email"))
                 {
                     PlayerName = Snapshot->GetChild("player_name")->GetValue().AsString();
                     GameLevel = Snapshot->GetChild("game_level")->GetValue().AsInt32();
@@ -346,6 +346,121 @@ int32 UMathoriaPlayerProfile::MapSchoolGradeEnumToInt(EGradeLevel SchoolGradeEnu
     default:
         return 1; 
     }
+}
+
+bool UMathoriaPlayerProfile::IsPlayerNameEmpty()
+{
+    return PlayerName.TrimStartAndEnd().IsEmpty();
+}
+
+
+void UMathoriaPlayerProfile::UpdateUsername(FString FirebasePlayerId, FString Username, FOnUsernameUpdated Callback)
+{
+    InitializeDatabaseReference(FirebasePlayerId);
+    FString ErrorMessage;
+
+    // Restriction: Ensure the username is not empty
+    if (Username.IsEmpty())
+    {
+        ErrorMessage = TEXT("Username cannot be empty.");
+        UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+        Callback.ExecuteIfBound(false, ErrorMessage);
+        return;
+    }
+
+    // Restriction: Length between 3 and 15 characters
+    if (Username.Len() < 3 || Username.Len() > 15)
+    {
+        ErrorMessage = TEXT("Username must be between 3 and 15 characters.");
+        UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+        Callback.ExecuteIfBound(false, ErrorMessage);
+        return;
+    }
+
+    // Restriction: Only allow letters, numbers, and underscores
+    const FRegexPattern UsernamePattern(TEXT("^[A-Za-z0-9_]+$"));
+    FRegexMatcher Matcher(UsernamePattern, Username);
+    if (!Matcher.FindNext())
+    {
+        ErrorMessage = TEXT("Username can only contain letters, numbers, and underscores.");
+        UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+        Callback.ExecuteIfBound(false, ErrorMessage);
+        return;
+    }
+
+    if (!PlayerDatabaseRef || !PlayerDatabaseRef->IsValid())
+    {
+        ErrorMessage = TEXT("PlayerDatabaseRef is invalid. Ensure Firebase is initialized.");
+        UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+        Callback.ExecuteIfBound(false, ErrorMessage);
+        return;
+    }
+
+    // Check for uniqueness in the database
+    UDatabaseReference* UsernameCheckRef = PlayerDatabaseRef->Child("players");
+    if (!UsernameCheckRef || !UsernameCheckRef->IsValid())
+    {
+        ErrorMessage = TEXT("Failed to get a valid database reference for 'players'.");
+        UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+        Callback.ExecuteIfBound(false, ErrorMessage);
+        return;
+    }
+
+    // Check if the username is unique
+    UsernameCheckRef->GetValue(FSnapshotCallback::CreateLambda([this, Username, Callback](EFirebaseDatabaseError Error, const UDataSnapshot* Snapshot)
+        {
+            FString ErrorMessage;
+
+            if (Error != EFirebaseDatabaseError::None)
+            {
+                ErrorMessage = FString::Printf(TEXT("Error checking username uniqueness: %d"), static_cast<int32>(Error));
+                UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+                Callback.ExecuteIfBound(false, ErrorMessage);
+                return;
+            }
+
+            if (!Snapshot || !Snapshot->IsValid())
+            {
+                ErrorMessage = TEXT("Snapshot is invalid.");
+                UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+                Callback.ExecuteIfBound(false, ErrorMessage);
+                return;
+            }
+
+            // Iterate through all player records
+            for (const auto& PlayerEntry : Snapshot->GetChildren())
+            {
+                if (PlayerEntry->HasChild("player_name"))
+                {
+                    FString ExistingUsername = PlayerEntry->GetChild("player_name")->GetValue().AsString();
+                    if (ExistingUsername == Username)
+                    {
+                        ErrorMessage = TEXT("Username is already taken. Choose another.");
+                        UE_LOG(LogTemp, Warning, TEXT("%s"), *ErrorMessage);
+                        Callback.ExecuteIfBound(false, ErrorMessage);
+                        return;
+                    }
+                }
+            }
+
+            // Username is unique, proceed with saving
+            PlayerDatabaseRef->Child("player_name")->SetValue(FFirebaseVariant(Username), FDatabaseCallback::CreateLambda([Callback](EFirebaseDatabaseError SaveError)
+                {
+                    FString ErrorMessage;
+
+                    if (SaveError == EFirebaseDatabaseError::None)
+                    {
+                        UE_LOG(LogTemp, Log, TEXT("Player username saved successfully."));
+                        Callback.ExecuteIfBound(true, TEXT("Username updated successfully!"));
+                    }
+                    else
+                    {
+                        ErrorMessage = FString::Printf(TEXT("Failed to save player username: %d"), static_cast<int32>(SaveError));
+                        UE_LOG(LogTemp, Error, TEXT("%s"), *ErrorMessage);
+                        Callback.ExecuteIfBound(false, ErrorMessage);
+                    }
+                }));
+        }));
 }
 
 

@@ -257,7 +257,6 @@ void AMathoriaPlayerState::AuthenticateUser(const FString& Uid)
 }
 
 
-
 UTexture2D* AMathoriaPlayerState::GetHairTexture(EHairStyle HairStyle, EHairColor HairColor)
 {
     if (CustomizationManagerClass)

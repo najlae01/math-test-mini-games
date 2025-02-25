@@ -10,6 +10,9 @@
 #include "Test/GradeLevel.h"
 #include "Test/MiniGameObserver.h"
 #include "MathoriaPlayerProfile.generated.h"
+
+
+DECLARE_DYNAMIC_DELEGATE_TwoParams(FOnUsernameUpdated, bool, bSuccess, FString, FeedbackText);
 /**
  * 
  */
@@ -27,7 +30,6 @@ public:
 	// Player Attributes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Info", Replicated)
 	FString PlayerName;
-
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Info", Replicated)
 	EGradeLevel SchoolGrade;
@@ -77,7 +79,6 @@ public:
 	TArray<FString> ClothingItems;
 
 	// TEST
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Test")
 	FString LinkedTeacherID;
 
@@ -103,6 +104,11 @@ public:
 	// Helper function to initialize Firebase reference
 	void InitializeDatabaseReference(FString FirebasePlayerId);
 
+	UFUNCTION(BlueprintCallable, Category = "Customization")
+	bool IsPlayerNameEmpty();
+
+	UFUNCTION(BlueprintCallable, Category = "Customization")
+	void UpdateUsername(FString FirebasePlayerId, FString Username, FOnUsernameUpdated Callback);
 
 	// Customization Manager Reference
 	UPROPERTY() 
