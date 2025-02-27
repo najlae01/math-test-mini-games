@@ -9,6 +9,7 @@
 #include "Player/MathoriaPlayer.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/PlayerController.h"
+#include "UI/NpcDialogueWidget.h"
 
 ANPC::ANPC()
 {
@@ -42,6 +43,9 @@ ANPC::ANPC()
 
     // Initialize variables
     IsTalkingToPlayer = false;
+
+    Name = "Einstein";
+    Dialogue = "Welcome to mathoria";
 }
 
 void ANPC::BeginPlay()
@@ -167,6 +171,11 @@ void ANPC::StartDialogue()
         if (!NpcDialogueWidget)
         {
             NpcDialogueWidget = CreateWidget<UUserWidget>(GetWorld(), NpcDialogueWidgetClass);
+
+            if (UNpcDialogueWidget* DialogueWidget = Cast<UNpcDialogueWidget>(NpcDialogueWidget))
+            {
+                DialogueWidget->InitializeDialogue(this);
+            }
         }
         if (NpcDialogueWidget && !NpcDialogueWidget->IsInViewport())
         {

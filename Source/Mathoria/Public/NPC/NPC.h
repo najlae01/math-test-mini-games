@@ -20,7 +20,13 @@ class MATHORIA_API ANPC : public ACharacter
 
 public:
 	// Sets default values for this character's properties
-	ANPC();
+    ANPC();
+
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Identity")
+    FString Name;
+
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Dialogue")
+    FString Dialogue;
 
     // Called every frame
     virtual void Tick(float DeltaTime) override;
